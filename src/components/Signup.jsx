@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 import logo from "../assets/almora-logo.png";
 import eye from "../assets/eye.svg";
@@ -9,6 +9,19 @@ const Signup = () => {
   const [role, setRole] = useState("student");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+
+    // 🔥 ROLE BASED REDIRECT
+    if (role === "student") {
+      navigate("/student/profile");
+    } else {
+      navigate("/alumni/profile");
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -22,12 +35,15 @@ const Signup = () => {
 
         <div className={`role-switch ${role === "mentor" ? "mentor" : ""}`}>
           <button
+            type="button"
             className={role === "student" ? "active" : ""}
             onClick={() => setRole("student")}
           >
             Student
           </button>
+
           <button
+            type="button"
             className={role === "mentor" ? "active" : ""}
             onClick={() => setRole("mentor")}
           >
@@ -35,7 +51,7 @@ const Signup = () => {
           </button>
         </div>
 
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={handleSignup}>
 
           <label>Full Name</label>
           <input type="text" placeholder="Enter your name" />
@@ -69,7 +85,9 @@ const Signup = () => {
             />
           </div>
 
-          <button className="signup-btn">Create Account</button>
+          <button type="submit" className="signup-btn">
+            Create Account
+          </button>
 
           <p className="login-text">
             Already have an account?{" "}

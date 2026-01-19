@@ -10,46 +10,8 @@
 /* ========================= */
 body {
   margin: 0;
-  background: linear-gradient(
-    120deg,
-    #8c8c8c,
-    #ffffff,
-    #454545
-  );
-  background-size: 300% 300%;
-  animation: bgMove 18s ease infinite;
-  overflow: hidden;
 }
 
-/* moving light swoosh */
-body::before {
-  content: "";
-  position: absolute;
-  width: 120%;
-  height: 120%;
-  top: -30%;
-  left: -30%;
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,0.55) 0%,
-    rgba(255,255,255,0.15) 35%,
-    transparent 60%
-  );
-  animation: swoosh 14s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes swoosh {
-  0% { transform: translateX(-30%) translateY(-20%); }
-  50% { transform: translateX(20%) translateY(10%); }
-  100% { transform: translateX(-30%) translateY(-20%); }
-}
 
 /* ========================= */
 /* LAYOUT */
