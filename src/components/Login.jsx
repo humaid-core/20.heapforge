@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase"; // untouched
+import { auth } from "./firebase";
+import { getUser } from "../services/firestore";
 import "../styles/Signup.css";
 import logo from "../assets/almora-logo.png";
 import eye from "../assets/eye.svg";
@@ -26,16 +27,8 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    /* ---------- BASIC VALIDATION ---------- */
     if (!email || !password) {
       setError("Please fill in all fields.");
-      triggerShake();
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
       triggerShake();
       return;
     }
@@ -43,39 +36,51 @@ const Login = () => {
     try {
       setLoading(true);
 
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      navigate("/dashboard");
+      const uid = userCredential.user.uid;
+
+      // 🔥 FIRESTORE USER DATA
+      const userData = await getUser(uid);
+
+      if (!userData) {
+        setError("User profile not found. Please complete signup.");
+        triggerShake();
+        return;
+      }
+
+      // ✅ ROUTING LOGIC
+      if (userData.profileCompleted) {
+        navigate("/dashboard");
+      } else {
+        if (userData.role === "student") {
+          navigate("/student/profile");
+        } else if (userData.role === "alumni") {
+          navigate("/alumni/profile");
+        } else {
+          navigate("/dashboard");
+        }
+      }
 
     } catch (err) {
-      console.log("Firebase error:", err.code);
-
       switch (err.code) {
-        case "auth/wrong-password":
         case "auth/invalid-credential":
+        case "auth/wrong-password":
           setError("Invalid email or password.");
           break;
-
         case "auth/user-not-found":
           setError("No account found with this email.");
           break;
-
-        case "auth/user-disabled":
-          setError("This account has been disabled.");
-          break;
-
         case "auth/too-many-requests":
-          setError("Too many attempts. Please try again later.");
+          setError("Too many attempts. Try later.");
           break;
-
-        case "auth/network-request-failed":
-          setError("Network error. Please check your connection.");
-          break;
-
         default:
           setError("Login failed. Please try again.");
       }
-
       triggerShake();
     } finally {
       setLoading(false);
@@ -110,24 +115,16 @@ const Login = () => {
             />
             <img
               src={showPassword ? eyeSlash : eye}
-              alt="toggle password"
+              alt="toggle"
               onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
           {error && <p className="login-error">{error}</p>}
 
-          <button
-            className="signup-btn"
-            type="submit"
-            disabled={loading}
-          >
+          <button className="signup-btn" type="submit" disabled={loading}>
             {loading ? "Signing in..." : "Login"}
           </button>
-
-          <p className="login-text">
-            <span>Forgot Password?</span>
-          </p>
 
           <p className="login-text">
             Don’t have an account?{" "}

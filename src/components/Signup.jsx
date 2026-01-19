@@ -75,7 +75,12 @@ const Signup = () => {
         createdAt: new Date(),
       });
 
-      navigate("/dashboard");
+      // Role-based redirect after signup
+      if (role === "student") {
+        navigate("/student/profile");
+      } else {
+        navigate("/alumni/profile");
+      }
     } catch (err) {
       console.log("Firebase signup error:", err.code);
 
@@ -111,26 +116,25 @@ const Signup = () => {
           <p>Sign up to get started</p>
         </div>
 
-        <form className="signup-form" onSubmit={handleSignup}>
-          <label>Role</label>
-          <div className="toggle-container">
-            <button
-              type="button"
-              className={`toggle-button ${role === "student" ? "active" : ""}`}
-              onClick={() => setRole("student")}
-            >
-              Student
-            </button>
-            <button
-              type="button"
-              className={`toggle-button ${role === "alumni" ? "active" : ""}`}
-              onClick={() => setRole("alumni")}
-            >
-              Alumni
-            </button>
-          </div>
+        <div className="toggle-container">
+          <button
+            type="button"
+            className={`toggle-button ${role === "student" ? "active" : ""}`}
+            onClick={() => setRole("student")}
+          >
+            Student
+          </button>
+          <button
+            type="button"
+            className={`toggle-button ${role === "alumni" ? "active" : ""}`}
+            onClick={() => setRole("alumni")}
+          >
+            Alumni
+          </button>
+        </div>
 
-          <label>Name</label>
+        <form className="signup-form" onSubmit={handleSignup}>
+          <label>Full Name</label>
           <input
             type="text"
             placeholder="Enter your name"

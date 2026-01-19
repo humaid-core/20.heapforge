@@ -10,39 +10,8 @@
 /* ========================= */
 body {
   margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(120deg, #d9d9d9, #ffffff, #bdbdbd);
-  background-size: 300% 300%;
-  animation: bgMove 16s ease infinite;
-  overflow: hidden;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Soft glow */
-body::before {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,0.6) 0%,
-    rgba(255,255,255,0.15) 40%,
-    transparent 65%
-  );
-  animation: glowMove 14s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes glowMove {
-  0% { transform: translate(-20%, -20%); }
-  50% { transform: translate(15%, 10%); }
-  100% { transform: translate(-20%, -20%); }
-}
 
 /* ========================= */
 /* LAYOUT */
