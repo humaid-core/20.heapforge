@@ -1,0 +1,60 @@
+✅ ALMORA — FINAL DESIGN LOCK 🔐
+🎨 Color Palette (LOCKED)
+
+This is now your official brand palette:
+
+🔹 Primary — Deep Indigo
+
+#1E2A5A
+→ Trust • Wisdom • Professionalism
+(Headers, navbar, primary buttons)
+
+🔹 Accent — Soft Gold
+
+#F4C430
+→ Guidance • Achievement
+(Highlights, icons, CTA)
+
+🔹 Background — Off White
+
+#F8F9FC
+→ Clean • Modern • Easy on eyes
+
+🔹 Text — Slate Gray
+
+#4A4F5A
+→ Professional readability
+
+🔹 Success / Verified
+
+#2ECC71
+→ Confirmations, success states
+
+✅ This palette is now LOCKED for ALMORA.
+
+🔤 FONT — FINAL & LOCKED
+
+After considering:
+
+Professional look
+
+Readability
+
+Startup feel
+
+Resume & PPT compatibility
+
+Web performance
+
+🏆 FINAL FONT CHOICE:
+Inter ✅ (LOCKED)
+Why Inter is PERFECT for ALMORA:
+
+✔ Modern & clean
+✔ Used by Stripe, Notion, Linear
+✔ Excellent readability
+✔ Looks premium
+✔ Works beautifully with dashboards
+✔ Best for React apps
+
+
